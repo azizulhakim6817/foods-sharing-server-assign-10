@@ -11,8 +11,8 @@ const port = process.env.PORT || "8000";
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://foods-sharing-client-assign-10.vercel",
-    credentials: true, // optional, if you want to allow cookies or auth headers
+    origin: "https://foods-sharing-client-assign-10.vercel.app",
+    credentials: true,
   }),
 );
 
