@@ -31,7 +31,7 @@ async function run() {
     const foodsCollection = db.collection("foods");
     const foodRequestCollection = db.collection("food-request");
 
-    //! Food Request Submissions collectons-------------
+    //! food request submissions collectons-------------
     app.post("/food-request", async (req, res) => {
       const { foodId } = req.body;
 
@@ -63,14 +63,14 @@ async function run() {
           return res.status(404).json({ message: "Food not found" });
         }
 
-        // Owner check (MOST IMPORTANT)------
+        // Owner check importent------
         if (food.donator_email !== userEmail) {
           return res.status(403).json({
             message: "Access denied. Only food owner can see requests",
           });
         }
 
-        // Get all requests for this food----
+        // get all requests for this food----
         const requests = await foodRequestCollection
           .find({ foodId: new ObjectId(foodId) })
           .toArray();
