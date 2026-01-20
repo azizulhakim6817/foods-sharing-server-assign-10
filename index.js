@@ -157,6 +157,7 @@ async function run() {
       try {
         const result = await foodsCollection
           .find({ food_status: "Available" })
+          .sort({ foodQuantity: -1 })
           .toArray();
 
         return res.status(200).json({ message: "Get all foods", result });
