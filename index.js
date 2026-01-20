@@ -9,7 +9,12 @@ const port = process.env.PORT || "8000";
 
 //!middleware------------
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://foods-sharing-client-assign-10.vercel",
+    credentials: true, // optional, if you want to allow cookies or auth headers
+  }),
+);
 
 //! Database------------
 const client = new MongoClient(process.env.DATABASE, {
