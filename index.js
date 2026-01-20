@@ -7,11 +7,11 @@ import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
 const app = express();
 const port = process.env.PORT || "8000";
 
-//!middleware-----------------------
+//!middleware------------
 app.use(express.json());
 app.use(cors());
 
-//! Database------------------------------
+//! Database------------
 const client = new MongoClient(process.env.DATABASE, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -49,7 +49,7 @@ async function run() {
           return res.status(400).json({ message: "User email required" });
         }
 
-        // Food find
+        // Food find-------
         const food = await foodsCollection.findOne({
           _id: new ObjectId(foodId),
         });
@@ -58,14 +58,14 @@ async function run() {
           return res.status(404).json({ message: "Food not found" });
         }
 
-        // Owner check (MOST IMPORTANT)
+        // Owner check (MOST IMPORTANT)------
         if (food.donator_email !== userEmail) {
           return res.status(403).json({
             message: "Access denied. Only food owner can see requests",
           });
         }
 
-        // Get all requests for this food
+        // Get all requests for this food----
         const requests = await foodRequestCollection
           .find({ foodId: new ObjectId(foodId) })
           .toArray();
@@ -89,7 +89,7 @@ async function run() {
         _id: new ObjectId(requestId),
       });
 
-      // food requestcollceton ---------------------------------
+      // food requestcollceton ---------
       await foodRequestCollection.updateOne(
         { _id: new ObjectId(requestId) },
         {
